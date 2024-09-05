@@ -42,6 +42,9 @@ module VagrantPlugins
   OptionParser = Vagrant::OptionParser
 end
 
+# Log information about successful option parser injection
+global_logger.info("Vagrant OptionParser injected successfully into VagrantPlugins module")
+
 # Load in our helpers and utilities
 require "vagrant/shared_helpers"
 require "rubygems"
