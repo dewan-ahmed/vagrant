@@ -2,7 +2,6 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: BUSL-1.1
 
-
 FROM docker.mirror.hashicorp.services/golang:alpine AS builder
 
 RUN apk add --no-cache git gcc libc-dev openssh
@@ -26,6 +25,11 @@ WORKDIR /tmp/wp-src
 
 RUN apk add --no-cache make
 RUN go get github.com/kevinburke/go-bindata/...
+
+# Initialize git submodules
+RUN git submodule update --init --recursive
+
+# Build the project
 RUN --mount=type=cache,target=/root/.cache/go-build make bin
 
 FROM docker.mirror.hashicorp.services/alpine
